@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Alert, Box, IconButton, Collapse } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -8,20 +9,24 @@ interface IAppAlertProps {
   message: string;
 }
 
-export default function AppAlert(props: IAppAlertProps) {
+export default function AppAlert({
+  openAlert,
+  setOpenAlert,
+  message,
+}: IAppAlertProps) {
   // const handleClose = () => {
   //   props.setOpenAlert(false);
   // };
 
-  const [openAlert, setOpenAlert] = useState(false);
+  const [openAlert1, setOpenAlert1] = useState(false);
 
   useEffect(() => {
-    setOpenAlert(props.openAlert);
-  }, [props.message, props.openAlert]);
+    setOpenAlert1(openAlert);
+  }, [message, openAlert]);
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Collapse in={openAlert}>
+      <Collapse in={openAlert1}>
         <Alert
           action={
             <IconButton
@@ -29,8 +34,8 @@ export default function AppAlert(props: IAppAlertProps) {
               color="inherit"
               size="large"
               onClick={() => {
-                props.setOpenAlert(false);
                 setOpenAlert(false);
+                setOpenAlert1(false);
               }}
             >
               <CloseIcon fontSize="inherit" />
@@ -38,7 +43,7 @@ export default function AppAlert(props: IAppAlertProps) {
           }
           sx={{ mb: 2 }}
         >
-          {props.message}
+          {message}
         </Alert>
       </Collapse>
     </Box>

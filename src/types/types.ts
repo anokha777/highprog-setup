@@ -1,5 +1,5 @@
 export type SnackAction = {
-    openSnack: boolean;
-    snackMsg: string;
-    snackType: string;
-  }
+  openSnack: boolean;
+  snackMsg: string;
+  snackType: string;
+};

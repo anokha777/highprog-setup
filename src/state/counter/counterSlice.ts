@@ -1,4 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-use-before-define */
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface CounterState {
   value: number;
@@ -9,7 +11,7 @@ const initialState: CounterState = {
 };
 
 const counterSlice = createSlice({
-  name: "counter",
+  name: 'counter',
   initialState,
   reducers: {
     increment: (state) => {
@@ -25,7 +27,8 @@ const counterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(incrementAsync.pending, () => {
-        console.log("incrementAsync.pending");
+        // eslint-disable-next-line no-console
+        console.log('incrementAsync.pending');
       })
       .addCase(
         incrementAsync.fulfilled,
@@ -37,8 +40,9 @@ const counterSlice = createSlice({
 });
 
 export const incrementAsync = createAsyncThunk(
-  "counter/incrementAsync",
+  'counter/incrementAsync',
   async (amount: number) => {
+    // eslint-disable-next-line no-promise-executor-return
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return amount;
   }

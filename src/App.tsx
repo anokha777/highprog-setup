@@ -1,5 +1,5 @@
-import Counter from "./components/counter/Counter"
-import { UsersProvider } from "./components/Users/UsersProvider"
+import Counter from './components/counter/Counter.tsx';
+import UsersProvider from './components/Users/UsersProvider.tsx';
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
       <Counter />
       <UsersProvider />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

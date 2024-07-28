@@ -1,25 +1,25 @@
-import { Backdrop, CircularProgress } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Backdrop, CircularProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 interface ILoaderProps {
-  isLoading: boolean,
+  isLoading: boolean;
 }
 
-const Loader: React.FC<ILoaderProps> = (props): JSX.Element => {
-  const [isLoading, setIsLoading] = useState(false);
+export function Loader({ isLoading }: ILoaderProps) {
+  const [openLoader, setOpenLoader] = useState(false);
 
   useEffect(() => {
-    setIsLoading(props.isLoading);
-  }, [props.isLoading]);
+    setOpenLoader(isLoading);
+  }, [isLoading]);
 
-  return(
+  return (
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={isLoading}
+      open={openLoader}
     >
       <CircularProgress color="inherit" />
     </Backdrop>
   );
-};
+}
 
 export default Loader;

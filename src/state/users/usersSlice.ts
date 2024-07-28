@@ -1,5 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+/* eslint-disable no-use-before-define */
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 interface UsersPost {
   email: string;
@@ -34,45 +35,62 @@ const initialState: UserCreateState = {
     skills: [],
     salaryRange: [0, 2000],
     isTeacher: true,
-  }
+  },
 };
 
 const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(createUser.pending, (state, action) => {
-      return {...state,
-        isLoading: true,
-        isSuccess: false,
-        showNotification: false,
-        message: '',
-        data: action.payload,
-      };
-    })
-    .addCase(createUser.rejected, (state, action) => {
-      state = {
+      .addCase(createUser.pending, (state, action) => {
+        return {
+          ...state,
+          isLoading: true,
+          isSuccess: false,
+          showNotification: false,
+          message: '',
+          data: action.payload,
+        };
+      })
+      .addCase(createUser.rejected, (state, action) => {
+        // state = {
+        //   isLoading: false,
+        //   isSuccess: false,
+        //   showNotification: true,
+        //   message: action?.error?.message || 'Error in user save.',
+        //   data: undefined,
+        // };
+        // return state;
+        return {
+          ...state,
           isLoading: false,
           isSuccess: false,
           showNotification: true,
           message: action?.error?.message || 'Error in user save.',
           data: undefined,
         };
-      return state;
-    })
+      })
       .addCase(
         createUser.fulfilled,
         (state, action: PayloadAction<UsersPost>) => {
-          state = {
+          return {
+            ...state,
             isLoading: false,
             isSuccess: true,
             showNotification: true,
             message: 'User created successfully.',
-            data: action.payload
-          }
-          return state;
+            data: action.payload,
+          };
+          // state = {
+          //   isLoading: false,
+          //   isSuccess: true,
+          //   showNotification: true,
+          //   message: 'User created successfully.',
+          //   data: action.payload,
+          // };
+          // return state;
           // return Object.assign(state.data, action.payload);
         }
       );
@@ -80,13 +98,15 @@ const usersSlice = createSlice({
 });
 
 export const createUser = createAsyncThunk(
-  "users/createUser",
+  'users/createUser',
   async (payload: UsersPost) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const res = await axios.post('https://jsonplaceholder.typicode.com/posts', payload);
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    const res = await axios.post(
+      'https://jsonplaceholder.typicode.com/posts',
+      payload
+    );
     return res.data;
   }
 );
-
 
 export default usersSlice.reducer;

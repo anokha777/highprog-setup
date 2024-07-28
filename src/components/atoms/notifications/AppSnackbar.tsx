@@ -1,46 +1,56 @@
-import { Alert, Snackbar } from "@mui/material";
-import { SMALL_ERROR, SMALL_INFO, SMALL_SUCCESS, SMALL_WARNING } from "../../../constants/constants";
-import { SnackAction } from "../../../types/types";
-import { useEffect, useState } from "react";
+/* eslint-disable no-nested-ternary */
+import { Alert, Snackbar } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+  SMALL_ERROR,
+  SMALL_INFO,
+  SMALL_SUCCESS,
+  SMALL_WARNING,
+} from '../../../constants/constants.ts';
+import { SnackAction } from '../../../types/types.ts';
 
 interface IAppSnackbarProps {
   payload: SnackAction;
   // setSnackAction: (openSnack: SnackAction) => void;
 }
 
-const AppSnackbar = (props: IAppSnackbarProps) => {
-
+// function AppSnackbar(props: IAppSnackbarProps) {
+function AppSnackbar({ payload }: IAppSnackbarProps) {
   const [snackAction, setSnackAction] = useState<SnackAction>({
     openSnack: false,
     snackMsg: '',
-    snackType: ''
+    snackType: '',
   });
 
-useEffect(() => {
+  useEffect(() => {
     setSnackAction({
-      openSnack: props.payload?.openSnack,
-      snackMsg: props.payload?.snackMsg,
-      snackType: props.payload?.snackType,
+      openSnack: payload?.openSnack,
+      snackMsg: payload?.snackMsg,
+      snackType: payload?.snackType,
     });
-}, [props.payload]);
-
-
-
-
+  }, [payload]);
 
   const handleClose = () => {
-    setSnackAction({openSnack: false, snackMsg: '', snackType: ''});
+    setSnackAction({ openSnack: false, snackMsg: '', snackType: '' });
   };
 
   return (
-    <Snackbar open={snackAction?.openSnack} autoHideDuration={5000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+    <Snackbar
+      open={snackAction?.openSnack}
+      autoHideDuration={5000}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+    >
       <Alert
         onClose={handleClose}
         severity={
-          snackAction?.snackType === SMALL_ERROR ? SMALL_ERROR : 
-            snackAction?.snackType === SMALL_SUCCESS ? SMALL_SUCCESS :
-              snackAction?.snackType === SMALL_WARNING ? SMALL_WARNING :
-                SMALL_INFO
+          snackAction?.snackType === SMALL_ERROR
+            ? SMALL_ERROR
+            : snackAction?.snackType === SMALL_SUCCESS
+              ? SMALL_SUCCESS
+              : snackAction?.snackType === SMALL_WARNING
+                ? SMALL_WARNING
+                : SMALL_INFO
         }
         variant="filled"
         sx={{ width: '100%' }}
@@ -49,6 +59,6 @@ useEffect(() => {
       </Alert>
     </Snackbar>
   );
-};
+}
 
 export default AppSnackbar;

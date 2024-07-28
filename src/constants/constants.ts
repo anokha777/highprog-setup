@@ -1,5 +1,5 @@
 export const patterns = {
-	email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+  email: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
 };
 
 export const SMALL_ERROR = 'error';
