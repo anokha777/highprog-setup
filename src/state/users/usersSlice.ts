@@ -102,7 +102,7 @@ export const createUser = createAsyncThunk(
   async (payload: UsersPost) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000));
     const res = await axios.post(
-      'https://jsonplaceholder.typicode.com/posts',
+      `${import.meta.env.REACT_APP_API_URL}/posts`,
       payload
     );
     return res.data;
